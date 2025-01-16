@@ -2,8 +2,9 @@ require 'swagger_helper'
 
 RSpec.describe 'bets', type: :request do
  
-  let(:user) {User.create!(full_name: "Lukas", email: "luke@gmail.com", password: "Secret1*3*5*##")}
+  let(:user) {User.create!(username: "Lukas", email: "luke@gmail.com", password: "Secret1*3*5*##")}
   let(:game) {Game.create!(game_id: 2, home_team: "Man", away_team: "Arsenal")}
+  let(:bet) { Bet.create(game: game, bet_type: "winner", pick: "away", odd: 1.5 )}
 
   path '/bets' do
     post('create bet') do
@@ -29,7 +30,7 @@ RSpec.describe 'bets', type: :request do
     
       response(201, 'successful') do
         let(:Authorization) { "Bearer #{sign_in_as(user)[1]}" }
-        let(:bet_placements) { { bet_placements: [{bet_id: game.id, amount: 50 }]  } }
+        let(:bet_placements) { { bet_placements: [{bet_id: bet.id, amount: 50 }]  } }
 
         after do |example|
           example.metadata[:response][:content] = {

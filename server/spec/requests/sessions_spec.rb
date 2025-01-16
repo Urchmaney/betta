@@ -1,7 +1,7 @@
 require 'swagger_helper'
 
 RSpec.describe 'sessions', type: :request do
-  let(:user) {User.create!(full_name: "Lukas", email: "luke@gmail.com", password: "Secret1*3*5*##")}
+  let(:user) {User.create!(username: "Lukas", email: "luke@gmail.com", password: "Secret1*3*5*##")}
 
   path '/sign_in' do
     post('create session') do

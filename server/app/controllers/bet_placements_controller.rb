@@ -22,6 +22,6 @@ class BetPlacementsController < ApplicationController
 
   private
     def bet_placements_params
-      params.permit(bet_placements: [[:bet_id, :amount]]).require(bet_placements)
+      params.permit(bet_placements: [[:bet_id, :amount]]).require(:bet_placements)
     end
 end

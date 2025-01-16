@@ -6,12 +6,12 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, allow_nil: true, length: { minimum: 12 }
-  validates :full_name, presence: true
+  validates :username, presence: true
   validates :balance, numericality: { greater_than_or_equal_to: 0, message: "Low for transaction." }
 
   scope :leader_board, lambda {
     Rails.cache.fetch("leaderboard") do
-      includes(:bet_placements).group(:id, :ursername).order('sum_bet_placements_amount DESC').sum("bet_placements.amount").collect{|k, v| {name: k[1], id: k[0], bet: v }}
+      includes(:bet_placements).group(:id, :username).order('sum_bet_placements_amount DESC').sum("bet_placements.amount").collect{|k, v| {name: k[1], id: k[0], bet: v }}
     end
   }
 
