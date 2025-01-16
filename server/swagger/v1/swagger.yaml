@@ -1,0 +1,127 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/bets":
+    post:
+      summary: create bet
+      tags:
+      - Bet
+      security:
+      - bearer: []
+      parameters: []
+      responses:
+        '201':
+          description: successful
+        '422':
+          description: bad request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bets:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      game_id:
+                        type: integer
+                      bet_type:
+                        type: string
+                      pick:
+                        type: string
+                      amount:
+                        type: number
+              required:
+              - bets
+        description: Bet List
+  "/users/{id}/bets":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: list bets
+      tags:
+      - Bet
+      security:
+      - bearer: []
+      responses:
+        '200':
+          description: successful
+        '401':
+          description: unauthorized
+  "/sign_up":
+    post:
+      summary: create registration
+      tags:
+      - Auth
+      parameters: []
+      responses:
+        '201':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                full_name:
+                  type: string
+              required:
+              - email
+              - password
+              - full_name
+  "/sign_in":
+    post:
+      summary: create session
+      tags:
+      - Auth
+      parameters: []
+      responses:
+        '201':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
+  "/users/leaderboard":
+    get:
+      summary: leader board
+      tags:
+      - Users
+      responses:
+        '200':
+          description: successful
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
+components:
+  securitySchemes:
+    bearer:
+      description: JWT key necessary to use API calls
+      type: apiKey
+      name: Authorization
+      in: header
