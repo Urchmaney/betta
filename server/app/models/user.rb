@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   scope :leader_board, lambda {
     Rails.cache.fetch("leaderboard") do
-      includes(:bet_placements).group(:id, :full_name).order('sum_bet_placements_amount DESC').sum("bet_placements.amount").collect{|k, v| {name: k[1], id: k[0], bet: v }}
+      includes(:bet_placements).group(:id, :ursername).order('sum_bet_placements_amount DESC').sum("bet_placements.amount").collect{|k, v| {name: k[1], id: k[0], bet: v }}
     end
   }
 

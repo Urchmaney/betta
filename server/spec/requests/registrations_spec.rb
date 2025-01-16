@@ -12,12 +12,12 @@ RSpec.describe 'registrations', type: :request do
         properties: { 
           email: { type: :string },
           password: { type: :string}, 
-          full_name: { type: :string}, 
+          ursername: { type: :string}, 
         },
-        required: ['email', 'password', 'full_name']
+        required: ['email', 'password', 'ursername']
       }
       response(201, 'successful') do
-        let(:registration) {{ email: 'kingsobino@gmail.com', full_name: 'Kings Ply', password: "Secret1*3*5*##" }}
+        let(:registration) {{ email: 'kingsobino@gmail.com', ursername: 'Kings Ply', password: "Secret1*3*5*##" }}
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
