@@ -10,10 +10,10 @@ Rails.application.routes.draw do
   post "sign_in", to: "sessions#create"
   post "sign_up", to: "registrations#create"
 
-  post "bets", to: "bets#create" 
+  post "bets", to: "bet_placements#create" 
 
   resources :users, only: [] do
-    get "bets", to: "bets#index", on: :member
+    get "bets", to: "bet_placements#index", on: :member
     get "leaderboard", to: "users#leaderboard", on: :collection
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

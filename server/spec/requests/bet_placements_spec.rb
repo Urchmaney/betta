@@ -10,28 +10,26 @@ RSpec.describe 'bets', type: :request do
       tags 'Bet'
       security [bearer: []]
       consumes 'application/json'
-      parameter name: 'bets', in: :body, schema: {
+      parameter name: 'bet_placements', in: :body, schema: {
         type: :object,
         properties: {
-          bets: { 
+          bet_placements: { 
             type: :array, 
             items: { 
               type: :object, 
               properties: { 
-                game_id: { type: :integer },
-                bet_type: { type: :string}, 
-                pick: { type: :string}, 
+                bet_id: { type: :integer },
                 amount: { type: :number }, 
               }
             } 
           },
         },
-        required: [ 'bets']
+        required: [ 'bet_placements']
       }, description: "Bet List"
     
       response(201, 'successful') do
         let(:Authorization) { "Bearer #{sign_in_as(user)[1]}" }
-        let(:bets) { { bets: [{game_id: game.id, bet_type: 'winner', pick: 'home', amount: 50 }]  } }
+        let(:bet_placements) { { bet_placements: [{bet_id: game.id, amount: 50 }]  } }
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -45,9 +43,9 @@ RSpec.describe 'bets', type: :request do
 
       response(422, 'bad request') do
         let(:Authorization) { "Bearer #{sign_in_as(user)[1]}" }
-        let(:bets) { { bets: [
-          {game_id: game.id, bet_type: 'winner', pick: 'home', amount: 400 },
-          {game_id: game.id, bet_type: 'score_exact', pick: '2-1', amount: 250 },
+        let(:bet_placements) { { bet_placements: [
+          {bet_id: game.id, amount: 400 },
+          {bet_id: game.id, amount: 250 },
           ] } }
         
         after do |example|
