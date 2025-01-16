@@ -9,6 +9,10 @@ export function createSocketServer (port: number) : WebSocket.WebSocketServer{
   wss.on("connection", (ws: WebSocket) => {
     fetchLeaderboard().then((response: AxiosResponse) => {
       ws.send(response.data as string)
+    });
+
+    ws.on("message", (message) => {
+      
     })
   })
   
