@@ -22,12 +22,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_16_172110) do
   end
 
   create_table "bets", force: :cascade do |t|
+    t.string "external_id"
     t.integer "game_id", null: false
     t.string "bet_type", null: false
     t.string "pick", null: false
     t.float "odd", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["external_id"], name: "index_bets_on_external_id", unique: true
     t.index ["game_id"], name: "index_bets_on_game_id"
   end
 
@@ -43,15 +45,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_16_172110) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.string "game_id", null: false
+    t.string "external_id"
     t.string "home_team"
     t.string "away_team"
     t.integer "away_score", default: 0
     t.integer "home_score", default: 0
-    t.integer "timeElapsed", limit: 120, default: 0
+    t.integer "time_elapsed", limit: 120, default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["game_id"], name: "index_games_on_game_id", unique: true
+    t.index ["external_id"], name: "index_games_on_external_id", unique: true
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -64,6 +66,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_16_172110) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "external_id"
     t.string "username", null: false
     t.string "email", null: false
     t.string "password_digest", null: false
@@ -72,6 +75,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_16_172110) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["external_id"], name: "index_users_on_external_id", unique: true
   end
 
   add_foreign_key "bet_placements", "bets"

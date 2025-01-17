@@ -1,9 +1,7 @@
-import WebSocket, { WebSocketServer } from 'ws';
+import 'dotenv/config'
 import { Redis } from "ioredis";
 import { LeaderboardSubscription } from './src/leaderboard.subscription';
 import { redisConnection } from './src/redis';
-import "./src/workers";
-import "./src/bull"
 import { createSocketServer } from './src/socket';
 
 const port: number = Number(process.env.PORT || 8080)

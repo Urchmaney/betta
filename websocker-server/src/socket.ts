@@ -11,7 +11,7 @@ export function createSocketServer (port: number) : WebSocket.WebSocketServer{
       ws.send(response.data as string)
     });
 
-    ws.on("message", (message) => {
+    ws.on("message", (message: WebSocket.RawData) => {
       
     })
   })
