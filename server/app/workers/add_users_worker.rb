@@ -4,17 +4,13 @@ class AddUsersWorker
 
   def perform(*args)
     users = JSON.parse(args[0])
-
-    User.create(
       users.map do |user|
-        {
-          external_id: user['id'],
-          username: user['username'],
-          balance: user['balance'],
-          email: Faker::Internet.email,
-          password: "Secret1*3*5*##"
-        }
+        User.find_or_create_by(external_id: user['id']) do |u|
+          u.username = user['username']
+          u.balance = user['balance']
+          u.email = Faker::Internet.email
+          u.password = "Secret1*3*5*##"
+        end
       end
-  )
   end
 end
