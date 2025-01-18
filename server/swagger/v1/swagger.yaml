@@ -23,21 +23,17 @@ paths:
             schema:
               type: object
               properties:
-                bets:
+                bet_placements:
                   type: array
                   items:
                     type: object
                     properties:
-                      game_id:
+                      bet_id:
                         type: integer
-                      bet_type:
-                        type: string
-                      pick:
-                        type: string
                       amount:
                         type: number
               required:
-              - bets
+              - bet_placements
         description: Bet List
   "/users/{id}/bets":
     parameters:
@@ -77,12 +73,12 @@ paths:
                   type: string
                 password:
                   type: string
-                full_name:
+                username:
                   type: string
               required:
               - email
               - password
-              - full_name
+              - ursername
   "/sign_in":
     post:
       summary: create session
