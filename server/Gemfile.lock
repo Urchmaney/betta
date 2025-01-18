@@ -96,6 +96,7 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     diff-lcs (1.5.1)
+    dotenv (3.1.7)
     drb (2.2.1)
     erubi (1.13.1)
     faker (3.5.1)
@@ -111,6 +112,8 @@ GEM
     json-schema (5.1.1)
       addressable (~> 2.8)
       bigdecimal (~> 3.1)
+    jwt (2.10.1)
+      base64
     logger (1.6.5)
     loofah (2.24.0)
       crass (~> 1.0.2)
@@ -275,7 +278,9 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
   debug
+  dotenv
   faker
+  jwt (~> 2.10)
   puma (>= 5.0)
   rack-cors
   rails (~> 7.1.5, >= 7.1.5.1)
