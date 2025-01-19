@@ -15,6 +15,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_16_172110) do
     t.integer "user_id", null: false
     t.integer "bet_id", null: false
     t.integer "amount", null: false
+    t.integer "cashback", null: false
+    t.boolean "won", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["bet_id"], name: "index_bet_placements_on_bet_id"
@@ -76,6 +78,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_16_172110) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["external_id"], name: "index_users_on_external_id", unique: true
+    t.check_constraint "balance >= 0"
   end
 
   add_foreign_key "bet_placements", "bets"

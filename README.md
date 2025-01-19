@@ -18,3 +18,6 @@ Now that you have the main server setup, we can now setup the websocket server.
 If you want to start both application with one command, you can use foreman.
 - Install foreman to setup your development environment `gem install foreman`
 - Run `foreman start` to start development server
+
+### Starting Client and Simulator 
+[Read Here](/websocker-server/README.md#starting-client-and-simulator)

@@ -4,6 +4,8 @@ class CreateBetPlacement < ActiveRecord::Migration[7.1]
       t.references :user, null: false, foreign_key: true
       t.references :bet, null: false, foreign_key: true
       t.integer :amount, null: false
+      t.integer :cashback, null: false
+      t.boolean :won, default: false
 
       t.timestamps
     end

@@ -61,4 +61,11 @@ bets:
     pick: away
     amount: 30
     odds: 2.1
+  - id: B4
+    userId: U3
+    gameId: G2
+    betType: oneYellowCard
+    pick: away
+    amount: 70
+    odds: 2.1
 
