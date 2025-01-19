@@ -8,6 +8,10 @@ class BetPlacement < ApplicationRecord
 
     delegate :game, to: :bet
 
+    def calculate_cash_back
+      self.cashback = self.amount * self.bet.odd
+    end
+
     private
 
     def deduct_balance
@@ -17,8 +21,4 @@ class BetPlacement < ApplicationRecord
       self.user.save
     end
 
-    def calculate_cash_back
-      p self.bet
-      self.cashback = self.amount * self.bet.odd
-    end
 end

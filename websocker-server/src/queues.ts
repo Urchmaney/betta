@@ -28,11 +28,16 @@ function addNewBetsJob(args: (string | number)[], queue: string = "default") {
   addToQueue(queue, "AddBetsWorker", args);
 }
 
+function queueUpdateBetEvent(args: (string | number)[], queue: string = "default") {
+  addToQueue(queue, "UpdateBetWorker", args);
+}
+
 const queueRegistry: Record<string, (args: (string | number)[], queue?: string) => void> = {
   "newGames": addNewGamesJob,
   "newUsers": addNewUsersJob,
   "newBets": addNewBetsJob,
   "newGameEvent": queueNewGameEvent,
+  "betUpdateEvent": queueUpdateBetEvent
 }
 
 export default queueRegistry

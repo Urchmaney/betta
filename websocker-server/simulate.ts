@@ -45,6 +45,10 @@ const events = [
         { type: "fullTime", team: "home", player: "", minute: 95 }
       ]
     }]
+  },
+  {
+    type: "betUpdateEvent",
+    data: [{ betId: "B1", odds: Number((1 + Math.random() * 4).toFixed(2)) }]
   }
 ]
 ws.on('error', console.error);
