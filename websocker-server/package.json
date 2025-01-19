@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npx ts-node server.ts",
+    "start": "npx ts-node main.ts",
     "start:client": "npx ts-node client.ts",
     "simulate": "npx ts-node simulate.ts",
     "test": "jest"

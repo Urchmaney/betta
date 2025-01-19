@@ -1,5 +1,4 @@
 import Redis from "ioredis";
-import { v4 as uuidv4 } from 'uuid';
 
 export function redisInstance() {
   return new Redis({
@@ -8,30 +7,3 @@ export function redisInstance() {
   })
 }
 export const redis: Redis = redisInstance();
-
-export function addToQueue(queue: string, worker: string, args: (string | number)[]) {
-  const redis = redisInstance();
-  const fullQueue = `queue:${queue}`; 
-  redis.lpush(`queue:${queue}`, JSON.stringify({
-    job_id: uuidv4(),
-    class: worker,
-    args: args,
-    queue: fullQueue
-  }))
-}
-
-export function addNewGamesJob(args: (string | number)[], queue: string = "default") {
-  addToQueue(queue, "AddGamesWorker", args);
-}
-
-export function addNewUsersJob(args: (string | number)[], queue: string = "default") {
-  addToQueue(queue, "AddUsersWorker", args);
-}
-
-export function addNewBetsJob(args: (string | number)[], queue: string = "default") {
-  addToQueue(queue, "AddBetsWorker", args);
-}
-
-export function queueNewGameEvent(args: (string | number)[], queue: string = "default") {
-  addToQueue(queue, "LiveEventWorker", args)
-}

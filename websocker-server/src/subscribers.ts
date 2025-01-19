@@ -1,6 +1,6 @@
 
-import WebSocket, { WebSocketServer } from 'ws';
-import { redis, redisInstance } from './redis';
+import WebSocket from 'ws';
+import { redisInstance } from './redis';
 
 const subscribedChannels: Record<string, (wss: WebSocket.WebSocketServer, message: string) => void> = {
   "new_winners_total_amount": newWinnerTotalAmount
