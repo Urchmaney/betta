@@ -45,6 +45,7 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem 'rspec-rails'
   gem 'rswag-specs'
+  gem 'dotenv'
 end
 
 group :development do
@@ -59,3 +60,4 @@ gem "bcrypt", "~> 3.1.7"
 gem "sidekiq", "~> 7.3"
 
 gem 'faker'
+gem "jwt", "~> 2.10"

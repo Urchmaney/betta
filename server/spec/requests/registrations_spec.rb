@@ -12,7 +12,7 @@ RSpec.describe 'registrations', type: :request do
         properties: { 
           email: { type: :string },
           password: { type: :string}, 
-          ursername: { type: :string}, 
+          username: { type: :string}, 
         },
         required: ['email', 'password', 'ursername']
       }

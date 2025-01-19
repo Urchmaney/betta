@@ -3,7 +3,7 @@ require 'swagger_helper'
 RSpec.describe 'bets', type: :request do
  
   let(:user) {User.create!(username: "Lukas", email: "luke@gmail.com", password: "Secret1*3*5*##")}
-  let(:game) {Game.create!(game_id: 2, home_team: "Man", away_team: "Arsenal")}
+  let(:game) {Game.create!(external_id: 2, home_team: "Man", away_team: "Arsenal")}
   let(:bet) { Bet.create(game: game, bet_type: "winner", pick: "away", odd: 1.5 )}
 
   path '/bets' do

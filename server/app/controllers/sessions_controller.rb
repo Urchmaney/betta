@@ -4,7 +4,12 @@ class SessionsController < ApplicationController
   def create
     if user = User.authenticate_by(email: params[:email], password: params[:password])
       @session = user.sessions.create!
-      response.set_header "X-Session-Token", @session.signed_id
+      token = JWT.encode(
+        {session_id: @session.id},
+        ENV.fetch("APP_SECRET", Rails.application.secret_key_base),
+        'HS256'
+      )
+      response.set_header "X-Session-Token", token
 
       render json: @session, status: :created
     else
