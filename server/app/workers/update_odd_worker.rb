@@ -1,4 +1,4 @@
-class UpdateBetWorker
+class UpdateOddWorker
   include Sidekiq::Worker
 
   def perform(*args)
