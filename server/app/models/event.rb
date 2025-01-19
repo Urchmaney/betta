@@ -6,6 +6,8 @@ class Event < ApplicationRecord
 
   after_create :check_event_winning_bets
 
+  private 
+  
   def check_event_winning_bets
     FlagEventWinningBetsWorker.perform_async(id)
   end
