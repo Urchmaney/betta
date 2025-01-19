@@ -1,12 +1,13 @@
+import 'dotenv/config'
 import WebSocket from 'ws';
 
-const token = "eyJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uX2lkIjoxMH0.d5uydI_CeMGbRuAtYUlGfZgKXx6_x13X2W5JKbxVUU0" // change token to your own 
-const ws = new WebSocket('ws://localhost:8080/', {
+const token = "" // Input your token here
+const port: number = Number(process.env.PORT || 8080)
+const ws = new WebSocket(`ws://localhost:${port}/`, {
   headers: {
     "x-session-token": token
   }
 });
-
 const events = [
   {
     type: "newGameEvent",
