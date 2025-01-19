@@ -31,3 +31,7 @@ export function addNewUsersJob(args: (string | number)[], queue: string = "defau
 export function addNewBetsJob(args: (string | number)[], queue: string = "default") {
   addToQueue(queue, "AddBetsWorker", args);
 }
+
+export function queueNewGameEvent(args: (string | number)[], queue: string = "default") {
+  addToQueue(queue, "LiveEventWorker", args)
+}

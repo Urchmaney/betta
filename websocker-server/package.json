@@ -4,6 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npx ts-node server.ts",
+    "start:client": "npx ts-node client.ts",
+    "simulate": "npx ts-node simulate.ts",
     "test": "jest"
   },
   "keywords": [],

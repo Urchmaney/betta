@@ -2,12 +2,13 @@
 import { AxiosResponse } from 'axios';
 import WebSocket, { WebSocketServer } from 'ws';
 import { fetchLeaderboard } from './api';
-import { addNewBetsJob, addNewGamesJob, addNewUsersJob } from './redis';
+import { addNewBetsJob, addNewGamesJob, addNewUsersJob, queueNewGameEvent } from './redis';
 
 const jobMap: Record<string, (args: (string | number)[], queue?: string) => void> = {
   "newGames": addNewGamesJob,
   "newUsers": addNewUsersJob,
-  "newBets": addNewBetsJob
+  "newBets": addNewBetsJob,
+  "newGameEvent": queueNewGameEvent,
 }
 
 export function createSocketServer () : WebSocket.WebSocketServer{
@@ -21,7 +22,7 @@ export function createSocketServer () : WebSocket.WebSocketServer{
 
     ws.on("message", (message: WebSocket.RawData) => {
       const messageObj = JSON.parse(message.toString());
-      jobMap[messageObj.type]([messageObj.data])
+      jobMap[messageObj.type]?.([JSON.stringify(messageObj.data)])
     })
   });
   
