@@ -6,7 +6,6 @@ class BetPlacementsController < ApplicationController
   def create
     result = Bet.transaction do
       Current.user.bet_placements.create(bet_placements_params)
-      Current.user.save!
     end
     if result
       Rails.cache.delete("leaderboard")
