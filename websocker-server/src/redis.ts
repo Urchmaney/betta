@@ -1,7 +1,7 @@
 import Redis from "ioredis";
 import { v4 as uuidv4 } from 'uuid';
 
-function redisInstance() {
+export function redisInstance() {
   return new Redis({
     host: process.env.REDIS_HOST,
     port: process.env.REDIS_PORT ? Number(process.env.REDIS_PORT) : undefined

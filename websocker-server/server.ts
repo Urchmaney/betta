@@ -6,6 +6,7 @@ import { createServer, IncomingMessage } from 'http';
 import { Duplex } from 'stream';
 import { redis } from "./src/redis";
 import { authenticateToken } from './src/auth';
+import { registerSubscriptionChannels } from './src/subscribers';
 
 const wss = createSocketServer()
 const server = createServer();
@@ -26,6 +27,7 @@ server.on("upgrade", function (request: IncomingMessage, socket: Duplex, head: B
 
 const port: number = Number(process.env.PORT || 8080)
 
+registerSubscriptionChannels(wss);
 
 new LeaderboardSubscription(redis, wss);
 
