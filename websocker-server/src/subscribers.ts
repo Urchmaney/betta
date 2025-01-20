@@ -1,6 +1,7 @@
 
 import WebSocket from 'ws';
 import { redisInstance } from './redis';
+import logger from "./logger";
 
 const subscribedChannels: Record<string, (wss: WebSocket.WebSocketServer, message: string) => void> = {
   "cashback_update": publishCashback,
@@ -15,6 +16,7 @@ export function registerSubscriptionChannels(wss: WebSocket.WebSocketServer) {
   });
 
   redis.on("message", (channel, message) => {
+    logger.info(`Recieved message on channel ${channel}. message: ${message}`);
     subscribedChannels[channel](wss, message)
   })
 }
