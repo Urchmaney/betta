@@ -119,3 +119,98 @@ components:
       type: apiKey
       name: Authorization
       in: header
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        external_id:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+      example:
+        id: 1
+        external_id: U1
+        username: mike
+        email: mike@gmail.com
+    Game:
+      type: object
+      properties:
+        id:
+          type: integer
+        external_id:
+          type: string
+        home_team:
+          type: string
+        away_team:
+          type: string
+        away_score:
+          type: integer
+        home_score:
+          type: integer
+        time_elapsed:
+          type: integer
+      example:
+        id: 1
+        external_id: G1
+        home_team: Team 1
+        away_team: Team 2
+        away_score: 2
+        home_score: 0
+        time_elapsed: 70
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+        game_id:
+          type: integer
+        event_type:
+          type: string
+        for_home:
+          type: boolean
+        player:
+          type: string
+        minute:
+          type: integer
+      example:
+        id: 1
+        game_id: 1
+        event_type: goal
+        for_home: true
+        player: Player 1
+        minute: 50
+    Bet:
+      type: object
+      properties:
+        id:
+          type: integer
+        game_id:
+          type: integer
+        external_id:
+          type: string
+        bet_type:
+          type: string
+        pick:
+          type: string
+        odd:
+          type: decimal
+      example:
+        id: 1
+        game_id: 1
+        external_id: B1
+        bet_type: winner
+        pick: home
+        odd: 2.3
+    BetPlacement:
+      type: object
+      properties:
+        id: 1
+        user_id: 1
+        bet_id: 1
+        amount: 60
+        cashback: 90
+        won: false
