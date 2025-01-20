@@ -21,3 +21,10 @@ If you want to start both application with one command, you can use foreman.
 
 ### Starting Client and Simulator 
 [Read Here](/websocker-server/README.md#starting-client-and-simulator)
+
+### Docker Compose
+In the root directory we have the docker-compose file that dockerize all the application.
+You can run it with:
+```
+docker-compose up -d
+```
