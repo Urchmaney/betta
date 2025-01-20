@@ -1,15 +1,21 @@
+import logger from "./logger";
 import { redisInstance } from "./redis";
 import { v4 as uuidv4 } from 'uuid';
 
 function addToQueue(queue: string, worker: string, args: (string | number)[]) {
-  const redis = redisInstance();
-  const fullQueue = `queue:${queue}`; 
-  redis.lpush(`queue:${queue}`, JSON.stringify({
-    job_id: uuidv4(),
-    class: worker,
-    args: args,
-    queue: fullQueue
-  }))
+  try {
+    const redis = redisInstance();
+    const fullQueue = `queue:${queue}`;
+    redis.lpush(`queue:${queue}`, JSON.stringify({
+      job_id: uuidv4(),
+      class: worker,
+      args: args,
+      queue: fullQueue
+    }))
+    logger.info(`Job for worker: ${worker} has been queued with arguments ${args}`);
+  } catch(e) {
+    logger.error(`Error: Queuing Job for worker: ${worker} with arguments ${args}: ${(e as Error).message}`)
+  }
 }
 
 function queueNewGameEvent(args: (string | number)[], queue: string = "default") {
