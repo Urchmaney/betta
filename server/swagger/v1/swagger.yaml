@@ -23,17 +23,15 @@ paths:
             schema:
               type: object
               properties:
-                bet_placements:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      bet_id:
-                        type: integer
-                      amount:
-                        type: number
+                bet_placement:
+                  type: object
+                  properties:
+                    bet_id:
+                      type: integer
+                    amount:
+                      type: number
               required:
-              - bet_placements
+              - bet_placement
         description: Bet List
   "/users/{id}/bets":
     parameters:

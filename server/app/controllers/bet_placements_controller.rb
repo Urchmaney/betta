@@ -4,14 +4,12 @@ class BetPlacementsController < ApplicationController
   rescue_from 'ActiveRecord::RecordInvalid', with: :catch_user_exception
 
   def create
-    result = Bet.transaction do
-      Current.user.bet_placements.create(bet_placements_params)
-    end
-    if result
-      Rails.cache.delete("leaderboard")
-      render json: result, status: :created
+    bet_placement = Current.user.bet_placements.new(bet_placement_params)
+
+    if bet_placement.save
+      render json: bet_placement, status: :created
     else
-      render json: result.errors, status: :unprocessable_entity
+      render json: bet_placement.errors, status: :unprocessable_entity
     end
   end
 
@@ -20,7 +18,7 @@ class BetPlacementsController < ApplicationController
   end
 
   private
-    def bet_placements_params
-      params.permit(bet_placements: [[:bet_id, :amount]]).require(:bet_placements)
+    def bet_placement_params
+      params.permit(bet_placement: [:bet_id, :amount]).require(:bet_placement)
     end
 end

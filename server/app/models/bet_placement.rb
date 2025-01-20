@@ -20,7 +20,10 @@ class BetPlacement < ApplicationRecord
 
     def deduct_balance
       self.user.balance = self.user.balance - self.amount
-      throw :abort if self.user.balance < 0
+      if self.user.balance < 0
+        errors.add(:amount, "Amount above user balance.")
+        throw :abort 
+      end
 
       self.user.save
     end
@@ -32,6 +35,7 @@ class BetPlacement < ApplicationRecord
     def publish_new_win
       return unless won
 
+      Rails.cache.delete("leaderboard") 
       $redis.publish("new_win", { user_id: user_id, username: user.username, bet_id: bet_id, cashback: cashback }.to_json)
     end
 
