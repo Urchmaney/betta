@@ -1,0 +1,48 @@
+version: '3.4'
+
+services:
+  server: 
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    depends_on:
+      - redis
+    ports: 
+      - "3000:3000"
+    volumes:
+      - ./server:/app
+      - gem_cache:/usr/local/bundle/gems
+      - node_modules:/app/node_modules
+    env_file: ./server/.env
+    environment:
+      RAILS_ENV: development
+  sidekiq:
+    build: ./server
+    command: bundle exec sidekiq -q default -q leaderboard
+    depends_on:
+      - redis
+    volumes:
+      - .:/myapp
+    env_file:
+      - .env
+  socket:
+    build:
+      context: ./websocker-server
+      dockerfile: Dockerfile
+    image: nodejs
+    container_name: websocket
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "80:8080"
+    volumes:
+      - .:/home/node/app
+      - node_modules:/home/node/app/node_modules
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
