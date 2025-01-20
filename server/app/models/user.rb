@@ -2,7 +2,8 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :sessions, dependent: :destroy
-  has_many :bet_placements
+  has_many :bet_placements, dependent: :destroy
+  has_many :winning_bet_placements, -> { where(won: true) }, class_name: "BetPlacement"
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, allow_nil: true, length: { minimum: 12 }
@@ -11,7 +12,8 @@ class User < ApplicationRecord
 
   scope :leader_board, lambda {
     Rails.cache.fetch("leaderboard") do
-      includes(:bet_placements).group(:id, :username).order('sum_bet_placements_amount DESC').sum("bet_placements.amount").collect{|k, v| {name: k[1], id: k[0], bet: v }}
+      includes(:winning_bet_placements).group(:id, :username).order(
+        'sum_bet_placements_cashback DESC').sum("bet_placements.cashback").collect{|k, v| {name: k[1], id: k[0], total: v }}
     end
   }
 
@@ -23,5 +25,9 @@ class User < ApplicationRecord
 
   after_update if: :password_digest_previously_changed? do
     sessions.where.not(id: Current.session).delete_all
+  end
+
+  def total_wins
+    bet_placements.where(won: true).sum(:cashback)
   end
 end

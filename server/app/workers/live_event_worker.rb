@@ -4,6 +4,7 @@ class LiveEventWorker
   def perform(*args)
     games = JSON.parse(args[0])
     games.map do |game|
+      Rails.logger.info("Processing Game Event of Game with Id of #{game['gameId']}")
       created = false
       found_game = Game.find_or_create_by(external_id: game['gameId']) do |g|
         created = true

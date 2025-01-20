@@ -17,6 +17,7 @@ REDIS_DB = ...
 ```
 Redis configuration can be omitted if you are using a local server in development.
 - Run `rails db:migrate` to setup migrations
+- Run `rails db:seed` to add mock data
 - Now run `rails s` to start only this application
 - Also to start the sidekiq server that runs background jobs, open
     -   Open a new terminal with the `server` as the current working directory

@@ -11,26 +11,23 @@ RSpec.describe 'bets', type: :request do
       tags 'Bet'
       security [bearer: []]
       consumes 'application/json'
-      parameter name: 'bet_placements', in: :body, schema: {
+      parameter name: 'bet_placement', in: :body, schema: {
         type: :object,
         properties: {
-          bet_placements: { 
-            type: :array, 
-            items: { 
-              type: :object, 
-              properties: { 
-                bet_id: { type: :integer },
-                amount: { type: :number }, 
-              }
-            } 
+          bet_placement: {
+            type: :object, 
+            properties: { 
+              bet_id: { type: :integer },
+              amount: { type: :number }, 
+            }
           },
         },
-        required: [ 'bet_placements']
+        required: ['bet_placement']
       }, description: "Bet List"
     
       response(201, 'successful') do
         let(:Authorization) { "Bearer #{sign_in_as(user)[1]}" }
-        let(:bet_placements) { { bet_placements: [{bet_id: bet.id, amount: 50 }]  } }
+        let(:bet_placement) { { bet_placement: {bet_id: bet.id, amount: 50 } } }
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -44,10 +41,7 @@ RSpec.describe 'bets', type: :request do
 
       response(422, 'bad request') do
         let(:Authorization) { "Bearer #{sign_in_as(user)[1]}" }
-        let(:bet_placements) { { bet_placements: [
-          {bet_id: game.id, amount: 400 },
-          {bet_id: game.id, amount: 250 },
-          ] } }
+        let(:bet_placement) { { bet_placement: {bet_id: game.id, amount: 700 } } }
         
         after do |example|
           example.metadata[:response][:content] = {
