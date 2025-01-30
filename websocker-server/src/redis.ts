@@ -6,4 +6,4 @@ export function redisInstance() {
     port: process.env.REDIS_PORT ? Number(process.env.REDIS_PORT) : undefined
   })
 }
-export const redis: Redis = redisInstance();
+export const redis: Redis  = redisInstance();
