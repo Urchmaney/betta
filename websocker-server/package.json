@@ -6,7 +6,7 @@
     "start": "npx ts-node main.ts",
     "start:client": "npx ts-node client.ts",
     "simulate": "npx ts-node simulate.ts",
-    "test": "jest"
+    "test": "jest ./test --runInBand --detectOpenHandles --forceExit"
   },
   "keywords": [],
   "author": "",
@@ -25,11 +25,14 @@
     "ws": "^8.18.0"
   },
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
     "@types/bull": "^4.10.4",
+    "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.10.6",
     "@types/ws": "^8.5.13",
     "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   }
