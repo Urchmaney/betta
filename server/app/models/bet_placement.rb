@@ -19,13 +19,17 @@ class BetPlacement < ApplicationRecord
     private
 
     def deduct_balance
-      self.user.balance = self.user.balance - self.amount
-      if self.user.balance < 0
-        errors.add(:amount, "Amount above user balance.")
-        throw :abort 
-      end
+      self.with_lock do
+        self.user.with_lock do
+          self.user.balance = self.user.balance - self.amount
+          if self.user.balance < 0
+            errors.add(:amount, "Amount above user balance.")
+            throw :abort 
+          end
 
-      self.user.save
+          self.user.save
+        end
+      end
     end
 
     def publish_cashback
